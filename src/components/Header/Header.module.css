@@ -1,0 +1,22 @@
+.header {
+    background: #833AE0;
+    padding: 10px 8% 10px;
+}
+
+.header__title {
+    font-family: cursive;
+    color: #FFEEDB;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 992px) {
+    .header__title {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 578px) {
+    .header__title {
+        font-size: 20px;
+    }
+}
