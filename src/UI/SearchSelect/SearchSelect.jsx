@@ -33,8 +33,11 @@ export default function SearchSelect({ data }) {
       onChange={onChangeSelect}
       onClick={toggleArrow}
     >
+        <option value={""} defaultValue className={`${s["search-option"]} ${s["default"]}`}>
+            Select value
+        </option>
       {data.map((item, index) => (
-        <option key={index} value={item.value}>
+        <option key={index} value={item.value} className={s["search-option"]}>
           {item.value}
         </option>
       ))}

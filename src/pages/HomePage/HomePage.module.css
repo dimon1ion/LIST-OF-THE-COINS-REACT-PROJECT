@@ -6,3 +6,26 @@
     color: #000000;
     margin-bottom: 25px;
 }
+
+.coins{
+    margin-top: 60px;
+    row-gap: 50px;
+}
+
+.coins__title{
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.coins__show{
+    text-decoration: none;
+    color: #000000;
+}
+.coins__show:hover{
+    text-decoration: underline;
+}
+
+.coins__image{
+    max-height: 214px;
+    max-width: 214px;
+}

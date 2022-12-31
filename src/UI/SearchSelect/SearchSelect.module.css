@@ -11,6 +11,14 @@
     appearance: none;
 }
 
+.search-option{
+    font-size: 15px;
+}
+
+.default{
+    background-color: rgb(209, 207, 207, .3);
+}
+
 .arrow-down{
     background: url(../../assets/images/Arrow-down.svg) no-repeat calc(100% - 12px) transparent;
 }
