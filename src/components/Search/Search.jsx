@@ -2,10 +2,12 @@ import s from "./Search.module.css";
 import arrowDown from "../../assets/images/Arrow-down.svg";
 import arrowUp from "../../assets/images/Arrow-up.svg";
 import SearchInput from "../../UI/SearchInput/SearchInput";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AdvancedFilter from "./AdvancedFilter";
 import SearchValueContext from "../../contexts/SearchValue.context";
 import SearchAdvanceContext from "../../contexts/SearchAdvance.context";
+import SearchGlobalContext from "../../contexts/SearchGlobal.context";
+import { useNavigate } from "react-router-dom";
 
 export default function Search() {
     const [isOpen, setIsOpen] = useState(false);
@@ -19,15 +21,27 @@ export default function Search() {
     const [yearTo, setYearTo] = useState("");
 
     const searchValue = useContext(SearchValueContext);
+    const {globalSearch, setGlobalSearch} = useContext(SearchGlobalContext);
+    const navigate = useNavigate();
 
     const toggleIsOpen = () => {
         setIsOpen(state => !state);
     }
 
-    const setSearchValue = (value) => {
+    useEffect(() => {
         if (searchValue) {
-            searchValue.setSearchValue(value);
+            searchValue.setSearchValue(mainValue);
         }
+    }, [mainValue]);
+
+    const onSubmitHandler = (event) => {
+        event.preventDefault();
+        if (globalSearch === undefined) {
+            return;
+        }
+        setGlobalSearch({mainValue, country, composition, quality, priceFrom, priceTo, yearFrom, yearTo});
+        setMainValue("");
+        navigate("/coins/search");
     }
 
     return (
@@ -36,7 +50,7 @@ export default function Search() {
             setPriceFrom, priceTo, setPriceTo, yearFrom, setYearFrom, yearTo, setYearTo
         }}>
             <div className="container-fluid">
-                <form className={"row " + s["form"]}>
+                <form onSubmit={onSubmitHandler} className={"row " + s["form"]}>
                     <p className={"row " + s["label"]}>Input field</p>
                     <div className="col-6 col-md-4">
                         <SearchInput value={mainValue} setValue={setMainValue} />

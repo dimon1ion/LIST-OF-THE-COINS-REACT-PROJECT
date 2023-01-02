@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Search from "../../components/Search/Search";
+import sendGetRequest from "../../requests/sendGetRequest";
 import s from "./HomePage.module.css";
 
 export default function HomePage() {
@@ -11,15 +12,7 @@ export default function HomePage() {
   }, []);
 
   const getCategories = async () => {
-    const data = await (
-      await fetch("http://localhost:3001/coins/categories", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-    ).json();
+    const data = await sendGetRequest("http://localhost:3001/coins/categories");
     setCategories(data);
   };
 

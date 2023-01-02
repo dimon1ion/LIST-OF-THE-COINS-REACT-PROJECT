@@ -1,7 +1,7 @@
 import { useState } from "react";
 import s from "./SearchSelect.module.css";
 
-export default function SearchSelect({ data }) {
+export default function SearchSelect({ data, value, setValue }) {
   const [isArrowDown, setIsArrowDown] = useState(true);
   const [isChanged, setIsChanged] = useState(false);
 
@@ -9,9 +9,10 @@ export default function SearchSelect({ data }) {
     setIsArrowDown(true);
   };
 
-  const onChangeSelect = () => {
+  const onChangeSelect = (event) => {
     changeToDownArrow();
     setIsChanged(true);
+    setValue(event.target.value);
   }
 
   const toggleArrow = () =>{

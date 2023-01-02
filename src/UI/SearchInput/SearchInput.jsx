@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import s from "./SearchInput.module.css";
 
-export default function SearchInput() {
+export default function SearchInput({value, setValue, type}) {
     
-    const [value, setValue] = useState("");
+    const [inputValue, setInputValue] = useState(value);
+
+    useEffect(() => {
+        setInputValue(value);
+    }, [value])
 
     const onChange = (event) => {
+        setInputValue(event.target.value);
         setValue(event.target.value);
     }
 
     return(
         <>
-            <input value={value} onChange={onChange} className={s["search-input"]}></input>
+            <input type={type || "text"} value={inputValue} onChange={onChange} className={s["search-input"]}></input>
         </>
     );
 

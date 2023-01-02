@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import SearchAdvanceContext from "../../../contexts/SearchAdvance.context";
+import sendGetRequest from "../../../requests/sendGetRequest";
 import SearchInput from "../../../UI/SearchInput/SearchInput";
 import SearchSelect from "../../../UI/SearchSelect";
 import searchStyles from "../Search.module.css";
@@ -25,13 +26,7 @@ export default function AdvancedFilter() {
 
     const sendGetRequestSelectInput = async (setValue, path) => {
         try {
-            const data = await (await fetch(path, {
-                method: "GET",
-                mode: "cors",
-                headers: {
-                "Content-Type": "application/json",
-                },
-            })).json();
+            const data = await sendGetRequest(path);
             setValue(data.map(({name}) => ({value: name})));
         } catch (error) {}
     }
@@ -41,18 +36,18 @@ export default function AdvancedFilter() {
             <div className={`row ${s["mt-25"]} ${searchStyles["form"]} ${s["row-gap-20"]}`}>
                 <div className="col-12 col-md-4">
                     <p className={searchStyles["label"]}>Issuing country</p>
-                    <SearchSelect data={countries} />
+                    <SearchSelect data={countries} value={country} setValue={setCountry} />
                 </div>
                 <div className={"col-12 col-md-7"}>
                     <p className={searchStyles["label"]}>Price</p>
                     <div className="d-flex">
                         <p className={`${s["p-12"]} ${s["pr-5"]}`}>from</p>
                         <div className="col-5 col-md-3">
-                            <SearchInput />
+                            <SearchInput value={priceFrom} type={"number"} setValue={setPriceFrom}/>
                         </div>
                         <p className={`${s["p-12"]} ${s["to"]}`}>to</p>
                         <div className="col-5 col-md-3">
-                            <SearchInput />
+                            <SearchInput value={priceTo} type={"number"} setValue={setPriceTo}/>
                         </div>
                     </div>
                 </div>
@@ -60,18 +55,18 @@ export default function AdvancedFilter() {
             <div className={`row ${s["mt-25"]} ${searchStyles["form"]} ${s["row-gap-20"]}`}>
                 <div className="col-12 col-md-4">
                     <p className={searchStyles["label"]}>Metal</p>
-                    <SearchSelect data={compositions} />
+                    <SearchSelect data={compositions} value={composition} setValue={setComposition} />
                 </div>
                 <div className={"col-12 col-md-7"}>
                     <p className={searchStyles["label"]}>Year of issue</p>
                     <div className="d-flex">
                         <p className={`${s["p-12"]} ${s["pr-5"]}`}>from</p>
                         <div className="col-5 col-md-3">
-                            <SearchInput />
+                            <SearchInput value={yearFrom} type={"number"} setValue={setYearFrom}/>
                         </div>
                         <p className={`${s["p-12"]} ${s["to"]}`}>to</p>
                         <div className="col-5 col-md-3">
-                            <SearchInput />
+                            <SearchInput value={yearTo} type={"number"} setValue={setYearTo}/>
                         </div>
                     </div>
                 </div>
@@ -79,7 +74,7 @@ export default function AdvancedFilter() {
             <div className={"row " + s["mt-25"]}>
                 <div className="col-12 col-md-4">
                     <p className={searchStyles["label"]}>Quality of the coin</p>
-                    <SearchSelect data={qualities} />
+                    <SearchSelect data={qualities} value={quality} setValue={setQuality} />
                 </div>
             </div>
         </>
